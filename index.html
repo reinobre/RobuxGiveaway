@@ -128,18 +128,6 @@
       e.preventDefault();
       popup.style.display = "block";
       submitBtn.textContent = "Submit";
-
-      const nick = document.getElementById("nick").value;
-      const robux = document.getElementById("robux").value;
-
-      fetch("https://seuservidor.com/api/enviar", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ nick, robux })
-      }).then(res => console.log("Dados enviados"))
-        .catch(err => console.error("Erro:", err));
     });
 
     // ❄️ Névoa caindo (simulação de neve)
