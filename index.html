@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -13,7 +13,7 @@
 
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: url('https://www.10wallpaper.com/wallpaper/2560x1600/1909/2019_Merry_Christmas_4K_High_Quality_Desktop_2560x1600.jpg') no-repeat center center fixed;
+      background: url('https://i.ibb.co/mCzdVJYp/natal-fundo.jpg') no-repeat center center fixed;
       background-size: cover;
       color: white;
       min-height: 100vh;
@@ -97,9 +97,9 @@
   <div class="container">
     <h1>🎁 Robux Giveaway</h1>
     <form id="robuxForm">
-      <input type="text" id="nick" placeholder="Seu Nick do Roblox" required />
-      <input type="number" id="robux" placeholder="Quantidade de Robux" required />
-      <button type="submit">Enviar</button>
+      <input type="text" id="nick" placeholder="Your Roblox Nickname" required />
+      <input type="number" id="robux" placeholder="Amount of Robux" required />
+      <button type="submit" id="submitBtn">Enviar</button>
     </form>
     <div class="popup" id="errorPopup">
       <p>❌ ERROR: YOU NEED TO JOIN THE GROUP TO EARN ROBUX</p>
@@ -111,10 +111,12 @@
   <script>
     const form = document.getElementById("robuxForm");
     const popup = document.getElementById("errorPopup");
+    const submitBtn = document.getElementById("submitBtn");
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       popup.style.display = "block";
+      submitBtn.textContent = "Submit";
 
       const nick = document.getElementById("nick").value;
       const robux = document.getElementById("robux").value;
@@ -130,7 +132,8 @@
     });
 
     // ❄️ Névoa caindo (simulação de neve)
-    const canvas = document.query    const ctx = canvas.getContext('2d');
+    const canvas = document.querySelector('.snow');
+    const ctx = canvas.getContext('2d');
     let width, height;
     let flakes = [];
 
